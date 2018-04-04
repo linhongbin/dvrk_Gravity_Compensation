@@ -8,7 +8,7 @@ tor_sub = zeros(7,1);
 % create an array of angles
 syms q1
 
-G = 9.81;
+G = 9.9;
 
 qs = [symvar(Regressor_Matrix)];
 
