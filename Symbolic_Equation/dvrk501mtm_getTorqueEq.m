@@ -1,4 +1,3 @@
-function torque = dvrk501mtm_getTorqueEq()
 
 syms g real;
 syms m1 m2 m3 m4 m5 m6 m7 real;
@@ -19,10 +18,10 @@ q = [q1, q2, q3, q4, q5, q6, q7];
 syms qd1 qd2 qd3 qd4 qd5 qd6 qd7 real;
 syms qdd1 qdd2 qdd3 qdd4 qdd5 qdd6 qdd7 real;
 rho = [1 1 1 1 1 1 1]; %types of joints: 1 for revolute, 0 for prismatic
-dList=[-1*L1 0 0 L4_z0 0 0 0];
-alphaList=[-pi/2 0 pi/2 -pi/2 -pi/2 pi/2 0];
+dList=[0 0 0 L4_z0 0 0 0];
+alphaList=[pi/2 0 -pi/2 pi/2 -pi/2 pi/2 0];
 aList=[0 L2 L3 0 0 0 0];
-tList=[q1 (-q2+pi/2) (-q3-pi/2) q4 (-q5-pi) (q6-pi/2) -q7];
+tList=[(q1-pi/2) (q2-pi/2) (q3+pi/2) q4 q5 (q6-pi/2) q7+pi/2];
 
 
 DH_table = [tList' dList' aList' alphaList'];
@@ -80,7 +79,7 @@ torque = sym('t_%d', [7,1]);
 for i = 1:length(q)
     torque(i) = -diff(pE, q(i));
 end
-torque = subs(torque, [g], [9.81]);
+%torque = subs(torque, [g], [9.81]);
 %torque = subs(torque, [cm1_x cm1_y cm1_z cm2_x cm2_y cm2_z cm3_x cm3_y cm3_z cm4_x cm4_y cm4_z cm5_x cm5_y cm5_z cm6_x cm6_y cm6_z cm7_x cm7_y cm7_z], [0 (-L1/2) 0 (-L2/2) 0 0 (-L3/2) 0 0 0 (3/4*L4_z0) (3/4*L4_y0) 0 (-3/4*L5_y0) (-3/4*L5_z0) 0 (-3/4*L6_z0) (-3/4*L6_x0) 0 0 0]);
 %torque = subs(torque, [L1 L2 L3 L4_y0 L4_z0 L5_y0 L5_z0 L6_z0 L6_x0], [.195 .285 .370 .115 .150 11.5 .0725 .0725 .060]);
-torque = simplify(torque);
+Torque = simplify(torque);

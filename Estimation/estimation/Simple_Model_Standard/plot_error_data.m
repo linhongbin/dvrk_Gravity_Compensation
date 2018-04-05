@@ -4,7 +4,7 @@ for i=1:data_set(3)
 q_sub = Torques_data(:,1,i);
 
 qs = [symvar(Regressor_Matrix)];
-E = double(subs(Regressor_Matrix,qs,[9.9 q_sub.']));
+E = double(subs(Regressor_Matrix,qs,[9.9 q_sub(2:6).']));
 
 F = E*dynamic_parameters;
 
@@ -14,11 +14,9 @@ end
 
 
 figure(2)
-for i =1:7
-    subplot(3,2,7);
-    plot(error_data(2,:).^2)
-    title('Square Error of Joint 2');
-end
+subplot(3,2,1);
+plot(error_data(2,:).^2)
+title('Square Error of Joint 2');
 
 subplot(3,2,2);
 plot(error_data(3,:).^2)
