@@ -2,20 +2,20 @@
 rosshutdown
 rosinit
 pub_pos = rospublisher('/dvrk/MTML/set_position_joint');
-sub_pos = rossubscriber('/dvrk/MTML/state_joint_current');
+%sub_pos = rossubscriber('/dvrk/MTML/state_joint_current');
 sub_tor_current = rossubscriber('/dvrk/MTML/state_joint_current');
-sub_tor_desired = rossubscriber('/dvrk/MTML/state_joint_current');
+sub_tor_desired = rossubscriber('/dvrk/MTML/state_joint_desired');
 
 % Reference from the controller
 % q_lim_min = [-0.6981,-0.2618, -0.8727, -3.4907, -1.5708 ,-0.7854,-8.3776];
 % q_lim_max = [1.1345, 0.8727 , 0.6109 ,  1.5708 , 3.1416, 0.7854,7.8540];
 
-range =[0.5498    0.3403    0.4451    1.5184    1.4137    0.4712    4.8695]
+range =[0.5498    0.2    0.1    1.2    0.7    0.4712    1]
 q_min = -range;
 q_max = range;
 
 
-sample_num = 20;
+sample_num = 30;
 step_num = 10;
 step_waiting_time = 3;
 
@@ -66,9 +66,10 @@ for i=1:step_num*2*6
     % Waiting until the pose is stable
     pause(step_waiting_time);
     for j=1:sample_num
-       actual_position(:,i,j) = Get_Position(sub_pos);
+       actual_position(:,i,j) = Get_Position(sub_tor_current);
        torque_desired(:,i,j) = Get_Torque(sub_tor_desired);
        torque_current(:,i,j) = Get_Torque(sub_tor_current);
+       pause(0.1);
     end
 end 
 
