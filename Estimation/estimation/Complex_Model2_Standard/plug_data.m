@@ -1,0 +1,50 @@
+
+%%
+%
+%Torques_data = saved_data;
+q_sub = zeros(7,1);
+tor_sub = zeros(7,1);
+%%
+% create an array of angles
+syms q1
+param_num = 14
+
+g = 9.9;
+
+qs = [symvar(Regressor_Matrix)];
+
+%%
+% number of data sets
+s= size(Torques_data);
+number_of_data_sets = s(3);
+
+R2_augmented = zeros(number_of_data_sets*7,param_num);
+T2_augmented = zeros(number_of_data_sets*7,1);
+
+for i=1:number_of_data_sets
+    
+    % load angles values
+    q_sub = Torques_data(:,1,i);
+    
+    % load torques
+    tor_sub = Torques_data(1:7,2,i);
+    
+   
+    A = double(subs(Regressor_Matrix,qs,[g q_sub(2:6).']));
+    
+    %B = double(subs(knowns,qs,q_sub));
+    
+    if (i==1)
+       R2_augmented(1:7,:) = A; 
+       T2_augmented(1:7,:) = tor_sub;
+    
+    else
+        
+        R2_augmented(7*i-6:7*i,:) = A;
+        T2_augmented(7*i-6:7*i,:) = tor_sub;
+    end
+    
+    
+end 
+
+

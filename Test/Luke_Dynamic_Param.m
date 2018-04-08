@@ -1,0 +1,47 @@
+cm2_x =-0.33;  
+cm2_y = 0.00;
+cm2_z =0.00;
+m2 = 0.65;
+
+cm3_x = -0.24; 
+cm3_y = 0.00 ;
+cm3_z = 0.00;
+m3 = 0.04;
+
+cm4_x = 0.0 ;
+cm4_y = -0.084 ;
+cm4_z = 0.17;
+m4 = 0.14;
+
+cm5_x = 0.0; 
+cm5_y = -0.036; 
+cm5_z = -0.060;
+m5 = 0.04;
+
+cm6_x = 0.0; 
+cm6_y = -0.025; 
+cm6_z = 0.08;
+m6 = 0.05;
+
+L2 = 0.2794;
+L3 = 0.3645;
+L4_z0 =  0.1506;
+
+
+
+
+
+Parameter(1,1)  = L2*m2+L2*m3+L2*m4+L2*m5+L2*m6+cm2_x*m2;
+Parameter(2,1)  = cm2_y*m2;
+Parameter(3,1)  = L3*m3+L3*m4+L3*m5+L3*m6+cm3_x*m3;
+Parameter(4,1)  = cm4_y*m4 +cm3_z*m3 +L4_z0*m4 +L4_z0*m5 +L4_z0*m6 ;
+Parameter(5,1)  = cm5_z*m5 +cm6_y*m6;
+Parameter(6,1)  = cm6_z*m6 ;
+Parameter(7,1)  = cm4_x*m4;
+Parameter(8,1)  = - cm4_z*m4 + cm5_y*m5;
+Parameter(9,1) = cm5_x*m5;
+Parameter(10,1) = cm6_x*m6;
+
+double(Parameter);
+
+dynamic_parameters =  Parameter

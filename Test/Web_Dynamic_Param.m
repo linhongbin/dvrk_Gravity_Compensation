@@ -1,8 +1,33 @@
-[cm1_x cm1_y cm1_z] = {-0.38 0.00 0.00};
-     [-0.25 0.00 0.00];
-%     [0.0 -0.084 0.12];
-%     [0.0 -0.036 -0.065];
-%     [0.0 -0.025 0.05]];
+cm2_x =-0.38;  
+cm2_y = 0.00;
+cm2_z =0.00;
+m2 = 0.65
+
+cm3_x = -0.25; 
+cm3_y = 0.00 ;
+cm3_z = 0.00;
+m3 = 0.04;
+
+cm4_x = 0.0 
+cm4_y = -0.084 
+cm4_z = 0.12;
+m4 = 0.14;
+
+cm5_x = 0.0; 
+cm5_y = -0.036; 
+cm5_z = -0.065;
+m5 = 0.04;
+
+cm6_x = 0.0; 
+cm6_y = -0.025; 
+cm6_z = 0.05;
+m6 = 0.05;
+
+L2 = 0.2794;
+L3 = 0.3645;
+L4_z0 =  0.1506;
+
+
 
 
 
@@ -17,4 +42,6 @@ Parameter_matrix(8,1)  = - cm4_z*m4 + cm5_y*m5;
 Parameter_matrix(9,1) = cm5_x*m5;
 Parameter_matrix(10,1) = cm6_x*m6;
 
-Parameter_matrix
+double(Parameter_matrix)
+
+dynamic_parameters =  Parameter_matrix;

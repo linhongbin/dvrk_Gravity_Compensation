@@ -1,5 +1,3 @@
-Regressor_Matrix = sym(zeros(7,12));
-Parameter_matrix = sym(zeros(12,1));
 
 %%
 % First of all Populate the parametetric matrix
@@ -13,15 +11,21 @@ Parameter_matrix(7,1)  = cm4_x*m4;
 Parameter_matrix(8,1)  = - cm4_z*m4 + cm5_y*m5;
 Parameter_matrix(9,1) = cm5_x*m5;
 Parameter_matrix(10,1) = cm6_x*m6;
+Parameter_matrix(11,1) = m3_parallel*L3_parallel;
+Parameter_matrix(12,1) = drift2;
+
+d_size = size(Parameter_matrix);
+param_num = d_size(1);
+Regressor_Matrix = sym(zeros(7,param_num));
 
 
 choosing_index = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-                  0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-                  0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1
-                  0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1
-                  0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1
-                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1];
+                  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1
+                  0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0
+                  0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0
+                  0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0
+                  0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0 
+                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 %%
 % Now populate the regressor Matrix
@@ -36,12 +40,18 @@ m_coeffs=[L2,m2
         cm5_y,m5
         cm5_x,m5
         cm6_x,m6
-        cm7_x,m7
-        cm7_y,m7];
+        L3_parallel,m3_parallel
+        drift2,1];
 for i=1:7
-    for j=1:12
+    for j=1:param_num
         if(choosing_index(i,j) == 1)
-            Regressor_Matrix (i,j)  = Get_Cof(Torque(i),m_coeffs(j,2),m_coeffs(j,1));
+            if(m_coeffs(j,1) == 1)
+                 Regressor_Matrix (i,j)  = Get_One_Cof(Torque(i),m_coeffs(j,2));
+            elseif(m_coeffs(j,2) == 1)
+                 Regressor_Matrix (i,j)  = Get_One_Cof(Torque(i),m_coeffs(j,1));
+            else
+                Regressor_Matrix (i,j)  = Get_Cof(Torque(i),m_coeffs(j,2),m_coeffs(j,1));
+            end
         else
             Regressor_Matrix (i,j)  = 0;
         end
