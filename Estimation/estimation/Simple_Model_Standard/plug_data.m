@@ -10,6 +10,8 @@ syms q1
 
 g = 9.9;
 
+param_num = 10;
+
 qs = [symvar(Regressor_Matrix)];
 
 %%
@@ -17,7 +19,7 @@ qs = [symvar(Regressor_Matrix)];
 s= size(Torques_data);
 number_of_data_sets = s(3);
 
-R2_augmented = zeros(number_of_data_sets*7,10);
+R2_augmented = zeros(number_of_data_sets*7,param_num);
 T2_augmented = zeros(number_of_data_sets*7,1);
 
 for i=1:number_of_data_sets
