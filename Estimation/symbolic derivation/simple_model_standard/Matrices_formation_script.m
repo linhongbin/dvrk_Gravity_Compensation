@@ -1,5 +1,7 @@
-Regressor_Matrix = sym(zeros(7,10));
-Parameter_matrix = sym(zeros(10,1));
+param_num = 10;
+
+Regressor_Matrix = sym(zeros(7,param_num));
+Parameter_matrix = sym(zeros(param_num,1));
 
 %%
 % First of all Populate the parametetric matrix
@@ -37,7 +39,7 @@ m_coeffs=[L2,m2
         cm5_x,m5
         cm6_x,m6];
 for i=1:7
-    for j=1:10
+    for j=1:param_num
         if(choosing_index(i,j) == 1)
             Regressor_Matrix (i,j)  = Get_Cof(Torque(i),m_coeffs(j,2),m_coeffs(j,1));
         else

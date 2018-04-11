@@ -33,22 +33,21 @@ drift2 = -cable_offset;
 E5 = 0.007321;
 drift5 = - 0.0065;
 
+d =  zeros(14,1);
+d(1)  = L2*m2+L2*m3+L2*m4+L2*m5+L2*m6+cm2_x*m2;
+d(2)  = cm2_y*m2;
+d(3)  = L3*m3+L3*m4+L3*m5+L3*m6+cm3_x*m3;
+d(4)  = cm4_y*m4 +cm3_z*m3 +L4_z0*m4 +L4_z0*m5 +L4_z0*m6 ;
+d(5)  = cm5_z*m5 +cm6_y*m6;
+d(6)  = cm6_z*m6 ;
+d(7)  = cm4_x*m4;
+d(8)  = - cm4_z*m4 + cm5_y*m5;
+d(9) = cm5_x*m5;
+d(10) = cm6_x*m6;
+d(11) = counter_balance;
+d(12) = drift2;
+d(13) = E5;
+d(14) = drift5;
 
-Parameter_matrix(1,1)  = L2*m2+L2*m3+L2*m4+L2*m5+L2*m6+cm2_x*m2;
-Parameter_matrix(2,1)  = cm2_y*m2;
-Parameter_matrix(3,1)  = L3*m3+L3*m4+L3*m5+L3*m6+cm3_x*m3;
-Parameter_matrix(4,1)  = cm4_y*m4 +cm3_z*m3 +L4_z0*m4 +L4_z0*m5 +L4_z0*m6 ;
-Parameter_matrix(5,1)  = cm5_z*m5 +cm6_y*m6;
-Parameter_matrix(6,1)  = cm6_z*m6 ;
-Parameter_matrix(7,1)  = cm4_x*m4;
-Parameter_matrix(8,1)  = - cm4_z*m4 + cm5_y*m5;
-Parameter_matrix(9,1) = cm5_x*m5;
-Parameter_matrix(10,1) = cm6_x*m6;
-Parameter_matrix(11,1) = counter_balance;
-Parameter_matrix(12,1) = drift2;
-Parameter_matrix(13,1) = E5;
-Parameter_matrix(14,1) = drift5;
 
-double(Parameter_matrix)
-
-dynamic_parameters =  Parameter_matrix
+dynamic_complex_parameters =  d
