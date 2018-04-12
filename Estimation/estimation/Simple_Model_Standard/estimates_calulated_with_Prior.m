@@ -49,7 +49,9 @@ for i = 1:param_num
     else
         dynamic_param_result = [dynamic_param_result;learn_dynamic_parameters(k)];
         k = k+1;
-    end
+    endknown_parameter(5)= -0.0019 ;
+known_index(6)=1;
+known_parameter(6)=0.0044;
 end
 dynamic_param_result
 dynamic_parameters = dynamic_param_result;
