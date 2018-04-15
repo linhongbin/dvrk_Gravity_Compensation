@@ -1,4 +1,4 @@
-bag = rosbag('Drift_mtm_2018-03-29-17-04-06.bag');
+bag = rosbag('mtml_2018-04-13-20-16-26.bag');
 jointbag = select(bag,'Topic', '/dvrk/MTML/state_joint_current');
 msgs = readMessages(jointbag);
 index_num = size(msgs)
@@ -7,7 +7,7 @@ for i = 1:index_num
 end
 
 
-start_index = 770;
+start_index = 1;
 time_delta = 0.01;
 t=[0];
 Joint_Position = Joint_Position*180/pi;
@@ -17,7 +17,7 @@ for i = start_index:index_num
     t = [t,t(end)+time_delta];
 end
 for i = 2:7
-    figure(i);
+    fig = figure(i);
     plot(t,Relative_Joint_Position(i,:),'LineWidth',1.8);
     title_name = sprintf('Joint %i',i);
     title(title_name,'FontSize',20);
@@ -25,4 +25,6 @@ for i = 2:7
     ylabel('Joint  Error  (deg)','FontSize',20)
     set(gca,'FontSize',15);
     set(gca,'box','off')
+    save_name = sprintf('Joint_%d.fig',i);
+    saveas(fig,save_name)
 end
