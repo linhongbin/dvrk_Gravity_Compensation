@@ -89,3 +89,4 @@ end
 %Second column of dynamic_param_result: 1 stand for trained param, 0 stands
 %for unknown param, 2 stand for known param
 dynamic_param_result
+dynamic_parameters = dynamic_param_result(:,1);
